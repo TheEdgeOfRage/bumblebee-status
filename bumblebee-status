@@ -99,8 +99,8 @@ def main():
     output = core.output.i3(theme, config)
     modules = []
 
-    core.input.register(None, core.input.WHEEL_UP, "i3-msg workspace prev_on_output")
-    core.input.register(None, core.input.WHEEL_DOWN, "i3-msg workspace next_on_output")
+    #  core.input.register(None, core.input.WHEEL_UP, "i3-msg workspace prev_on_output")
+    #  core.input.register(None, core.input.WHEEL_DOWN, "i3-msg workspace next_on_output")
 
     core.event.trigger("start")
     started = True
