@@ -92,10 +92,10 @@ class Module(core.module.Module):
     def update(self):
         try:
             tmp = self.__readcmd()
-            if isinstance(tmp, str):
-                self.__brightness = tmp
-            else:
-                self.__brightness = "{:3.0f}%".format(float(tmp))
+            #  if isinstance(tmp, str):
+                #  self.__brightness = tmp
+            #  else:
+            self.__brightness = "{:3.0f}%".format(float(tmp))
         except:
             self.__brightness = "n/a"
 
