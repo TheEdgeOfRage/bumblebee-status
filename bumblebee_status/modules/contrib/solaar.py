@@ -21,7 +21,7 @@ class Module(core.module.Module):
         super().__init__(config, theme, core.widget.Widget(self.utilization))
         self.__battery = self.parameter("device", "")
         self.background = True
-        self.__battery_status = ""
+        self.__battery_status = {}
         self.__error = False
         if self.__battery != "":
             self.__cmd = f"solaar show '{self.__battery}'"
@@ -29,11 +29,16 @@ class Module(core.module.Module):
             self.__cmd = "solaar show"
 
     @property
-    def __format(self):
-        return self.parameter("format", "{}")
+    def __format(self) -> str:
+        return self.parameter("format", "{percent}")
 
-    def utilization(self, widget):
-        return self.__format.format(self.__battery_status)
+    def utilization(self, widget) -> str:
+        default = {
+            "percent": "N/A%",
+            "voltage": "N/A mV",
+            "status": "N/A",
+        }
+        return self.__format.format(**{**default, **self.__battery_status})
 
     def update(self):
         self.__error = False
@@ -44,7 +49,13 @@ class Module(core.module.Module):
         if code == 0:
             for line in result.split('\n'):
                 if line.count('Battery') > 0:
-                    self.__battery_status = line.split(':')[1].strip()
+                    res = line.split(':')[1].strip()[:-1]
+                    percent, voltage, _, status = res.split(' ')
+                    self.__battery_status = {
+                        "percent": percent,
+                        "voltage": voltage,
+                        "status": status,
+                    }
         else:
             self.__error = True
             logging.error(f"solaar exited with {code}: {result}")
