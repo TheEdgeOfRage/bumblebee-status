@@ -113,9 +113,9 @@ class Module(core.module.Module):
             friendly_name = self.parameter(self.__devicename, self.__devicename)
             icon = self.parameter("icon." + self.__devicename, "")
             res = (
-                icon + " " + friendly_name + " | " + res
+                icon + " " + friendly_name + " " + res
                 if icon != ""
-                else friendly_name + " | " + res
+                else friendly_name + " " + res
             )
         return res
 
