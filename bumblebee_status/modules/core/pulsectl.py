@@ -62,6 +62,7 @@ class Module(core.module.Module):
         self.__type = type
         self.__volume = 0
         self.__devicename = "n/a"
+        self.__devicedescription = "n/a"
         self.__muted = False
         self.__showbars = util.format.asbool(self.parameter("showbars", False))
         self.__show_device_name = util.format.asbool(
@@ -110,8 +111,8 @@ class Module(core.module.Module):
             res = f"{res} {util.graph.hbar(self.__volume*100)}"
 
         if self.__show_device_name:
-            friendly_name = self.parameter(self.__devicename, self.__devicename)
-            icon = self.parameter("icon." + self.__devicename, "")
+            friendly_name = self.parameter(self.__devicedescription, self.__devicedescription)
+            icon = self.parameter("icon." + self.__devicedescription, "")
             res = (
                 icon + " " + friendly_name + " " + res
                 if icon != ""
@@ -162,10 +163,12 @@ class Module(core.module.Module):
             if not dev:
                 self.__volume = 0
                 self.__devicename = "n/a"
+                self.__devicedescription = "n/a"
             else:
                 self.__volume = dev.volume.value_flat
                 self.__muted = dev.mute
                 self.__devicename = dev.name
+                self.__devicedescription = dev.description
         core.event.trigger("update", [self.id], redraw_only=True)
         core.event.trigger("draw")
 
