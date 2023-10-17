@@ -199,10 +199,10 @@
   },
   "pulseout": {
     "muted": {
-      "prefix": ""
+      "prefix": ""
     },
     "unmuted": {
-      "prefix": ""
+      "prefix": ""
     }
   },
   "amixer": {
