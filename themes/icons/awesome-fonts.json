@@ -748,5 +748,8 @@
   },
   "solaar": {
     "prefix": ""
+  },
+  "oled_offset": {
+    "padding": ""
   }
 }
